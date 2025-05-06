@@ -49,14 +49,14 @@ jobs:
       with:
         ssh-private-key: ${{ secrets.SSH_KEY_CICD }}
         
-    # - name: Add server to known hosts
-    #   run: |
-    #     mkdir -p ~/.ssh
-    #     ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+    - name: Add server to known hosts
+      run: |
+        mkdir -p ~/.ssh
+        ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
         
-    # - name: Execute deployment script
-    #   run: |
-    #     ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.PROJECT_PATH }} && bash scripts/deploy.sh"
+    - name: Execute deployment script
+      run: |
+        ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.PROJECT_PATH }} && bash scripts/deploy.sh"
 
 
 
