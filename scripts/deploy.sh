@@ -30,17 +30,9 @@ deactivate
 # 7. Restart services
 echo "🔁 Restarting Application Services..."
 
-if ! sudo -n /bin/systemctl restart projects_gunicorn; then
-  echo "❌ Gunicorn restart failed"
-  exit 1
-fi
+sudo -n /bin/systemctl restart projects_gunicorn
+sudo -n /bin/systemctl restart nginx
 
-if ! sudo -n /bin/systemctl restart nginx; then
-  echo "❌ Nginx restart failed"
-  exit 1
-fi
 
 echo "✅ Services restarted successfully"
 echo "🎉 Deployment completed successfully!"
-
-exit 0
