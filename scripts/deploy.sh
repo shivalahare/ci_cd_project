@@ -28,11 +28,12 @@ echo "Deactivating virtual environment..."
 deactivate
 
 # 7. Restart services
-echo "🔁 Restarting Application Services..."
+echo "Restarting Application Services..."
 
 sudo -n /bin/systemctl restart projects_gunicorn
 sudo -n /bin/systemctl restart nginx
 
 
-echo "✅ Services restarted successfully"
+echo "Services restarted successfully"
+
 echo "🎉 Deployment completed successfully!"
