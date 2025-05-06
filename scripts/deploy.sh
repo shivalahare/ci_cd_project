@@ -31,15 +31,8 @@ deactivate
 echo "Restarting Application Services..."
 
 # Use absolute paths and explicit error handling
-if ! sudo -n /bin/systemctl restart projects_gunicorn; then
-  echo "❌ Gunicorn restart failed"
-  exit 1
-fi
-
-if ! sudo -n /bin/systemctl restart nginx; then
-  echo "❌ Nginx restart failed" 
-  exit 1
-fi
+/bin/systemctl restart projects_gunicorn
+/bin/systemctl restart nginx
 
 echo "✅ Services restarted successfully"
 
