@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Projects | Portfolio</title>
+    {% load static %}
     <style>
         * {
             margin: 0;
@@ -83,6 +84,10 @@
             font-size: 0.7rem;
             font-weight: bold;
         }
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
         .project-link {
             display: inline-block;
             padding: 0.5rem 1rem;
@@ -94,9 +99,21 @@
             text-decoration: none;
             transition: all 0.3s;
         }
+        .github-link {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
         .project-link:hover {
             background: white;
             transform: scale(1.05);
+            color: #1a2a6c;
+        }
+        .no-projects {
+            text-align: center;
+            grid-column: 1 / -1;
+            padding: 3rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
         }
         footer {
             text-align: center;
@@ -118,54 +135,43 @@
     </header>
     
     <div class="projects-grid">
-        <!-- Project 1 -->
-        <div class="project-card">
-            <img src="https://via.placeholder.com/400x200" alt="Project 1" class="project-img">
-            <div class="project-content">
-                <h3 class="project-title">E-Commerce Platform</h3>
-                <div class="project-tags">
-                    <span class="tag">Django</span>
-                    <span class="tag">React</span>
-                    <span class="tag">PostgreSQL</span>
+        {% if projects %}
+            {% for project in projects %}
+                <div class="project-card">
+                    {% if project.image %}
+                        <img src="{{ project.image.url }}" alt="{{ project.title }}" class="project-img">
+                    {% else %}
+                        <img src="{% static 'images/placeholder.jpg' %}" alt="{{ project.title }}" class="project-img">
+                    {% endif %}
+                    <div class="project-content">
+                        <h3 class="project-title">{{ project.title }}</h3>
+                        <div class="project-tags">
+                            {% for tech in project.get_technologies %}
+                                <span class="tag">{{ tech }}</span>
+                            {% endfor %}
+                        </div>
+                        <p class="project-desc">{{ project.description }}</p>
+                        <div class="project-links">
+                            {% if project.project_url %}
+                                <a href="{{ project.project_url }}" class="project-link" target="_blank">View Project</a>
+                            {% endif %}
+                            {% if project.github_url %}
+                                <a href="{{ project.github_url }}" class="project-link github-link" target="_blank">GitHub</a>
+                            {% endif %}
+                        </div>
+                    </div>
                 </div>
-                <p class="project-desc">A full-featured online store with payment processing, user accounts, and inventory management.</p>
-                <a href="#" class="project-link">View Project</a>
+            {% endfor %}
+        {% else %}
+            <div class="no-projects">
+                <h3>No projects added yet.</h3>
+                <p>Check back soon for updates!</p>
             </div>
-        </div>
-        
-        <!-- Project 2 -->
-        <div class="project-card">
-            <img src="https://via.placeholder.com/400x200" alt="Project 2" class="project-img">
-            <div class="project-content">
-                <h3 class="project-title">Weather App</h3>
-                <div class="project-tags">
-                    <span class="tag">JavaScript</span>
-                    <span class="tag">API</span>
-                    <span class="tag">CSS</span>
-                </div>
-                <p class="project-desc">Real-time weather forecasting application using OpenWeatherMap API with location detection.</p>
-                <a href="#" class="project-link">View Project</a>
-            </div>
-        </div>
-        
-        <!-- Project 3 -->
-        <div class="project-card">
-            <img src="https://via.placeholder.com/400x200" alt="Project 3" class="project-img">
-            <div class="project-content">
-                <h3 class="project-title">Task Manager</h3>
-                <div class="project-tags">
-                    <span class="tag">Python</span>
-                    <span class="tag">Flask</span>
-                    <span class="tag">MongoDB</span>
-                </div>
-                <p class="project-desc">A productivity tool for managing tasks, deadlines, and team collaboration.</p>
-                <a href="#" class="project-link">View Project</a>
-            </div>
-        </div>
+        {% endif %}
     </div>
     
     <footer>
-        <p>&copy; 2023 Shiva Lahare. All rights reserved.</p>
+        <p>&copy; {% now "Y" %} Shiva Lahare. All rights reserved.</p>
     </footer>
 </body>
 </html>
