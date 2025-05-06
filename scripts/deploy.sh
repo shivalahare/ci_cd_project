@@ -27,9 +27,12 @@ python manage.py collectstatic --noinput
 echo "Deactivating virtual environment..."
 deactivate
 
-# 7. Restart the application server
-echo "Restarting application server..."
-systemctl restart gunicorn
-systemctl restart nginx
+# 7. Create a restart flag file (will be handled by a separate process)
+echo "Restarting Application Services..."
+# Restart Gunicorn (no sudo password required)
+sudo systemctl restart projects_gunicorn
+sudo systemctl restart nginx
+echo "Services restarted successfully!"
 
 echo "Deployment completed successfully!"
+

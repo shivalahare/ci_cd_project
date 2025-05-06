@@ -14,7 +14,7 @@ SECRET_KEY = 'django-insecure-sb1-a=)!+_2_ct00)otb2z*yc33i+!5t@vlofvcpn8^m6ie4^8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["projects.shivalahare.live","www.projects.shivalahare.live"]
 
 
 # Application definition
