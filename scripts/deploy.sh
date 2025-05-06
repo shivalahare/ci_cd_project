@@ -27,15 +27,20 @@ python manage.py collectstatic --noinput
 echo "Deactivating virtual environment..."
 deactivate
 
-# 7. Create a restart flag file (will be handled by a separate process)
-echo "Restarting Application Services..."
+# 7. Restart services
+echo "🔁 Restarting Application Services..."
 
-# Use absolute paths and explicit error handling
-sudo /bin/systemctl restart projects_gunicorn
-sudo /bin/systemctl restart nginx
+if ! sudo -n /bin/systemctl restart projects_gunicorn; then
+  echo "❌ Gunicorn restart failed"
+  exit 1
+fi
 
-echo "Services restarted successfully"
+if ! sudo -n /bin/systemctl restart nginx; then
+  echo "❌ Nginx restart failed"
+  exit 1
+fi
 
-echo "Deployment completed successfully!"
+echo "✅ Services restarted successfully"
+echo "🎉 Deployment completed successfully!"
 
 exit 0
