@@ -30,8 +30,8 @@ deactivate
 # 7. Create a restart flag file (will be handled by a separate process)
 echo "Restarting Application Services..."
 # Restart Gunicorn (no sudo password required)
-sudo /bin/systemctl restart projects_gunicorn || exit 1
-sudo /bin/systemctl restart nginx || exit 1
+sudo -n /bin/systemctl restart projects_gunicorn || exit 1
+sudo -n /bin/systemctl restart nginx || exit 1
 echo "Services restarted successfully"
 
 echo "Deployment completed successfully!"
